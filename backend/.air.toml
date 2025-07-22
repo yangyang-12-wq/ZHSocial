@@ -1,0 +1,32 @@
+# Config file for Air - https://github.com/cosmtrek/air
+# Optimized for faster hot-reload
+
+# Working directory (project root)
+root = "."
+tmp_dir = "tmp"
+
+[build]
+# Compile only changed code into a persistent binary
+cmd = "go build -o ./tmp/nhcommunity.exe ."
+# Path to the generated binary to run
+bin = "tmp/nhcommunity.exe"
+# File extensions to watch
+include_ext = ["go", "tpl", "tmpl", "html", "yaml", "toml"]
+# Directories to ignore entirely (no rebuild triggered)
+exclude_dir = ["tmp", "vendor", "node_modules", "testdata"]
+# Directories to explicitly watch (defaults to root if empty)
+include_dir = ["."]
+# Files to exclude from watching
+exclude_file = []
+# Debounce delay to batch rapid changes (in milliseconds)
+delay = 500
+# Stop running old binary when build errors occur
+stop_on_error = true
+
+[log]
+# Show timestamp in logs
+time = true
+
+[misc]
+# Clean tmp_dir on exit to avoid stale binaries
+clean_on_exit = true

@@ -1,0 +1,48 @@
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: nhcommunity-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: nhcommunity
+      MYSQL_USER: nhuser
+      MYSQL_PASSWORD: nhpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - nhcommunity-network
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: nhcommunity-backend
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_USER=nhuser
+      - DB_PASSWORD=nhpassword
+      - DB_NAME=nhcommunity
+      - JWT_SECRET=your-secret-key
+      - SERVER_PORT=8080
+      - CLIENT_ORIGIN=http://localhost:3000
+      - TOKEN_EXPIRES_IN=43200
+    ports:
+      - "8080:8080"
+    networks:
+      - nhcommunity-network
+
+volumes:
+  mysql-data:
+
+networks:
+  nhcommunity-network:
+    driver: bridge 

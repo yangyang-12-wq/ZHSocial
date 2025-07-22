@@ -1,0 +1,9 @@
+DB_HOST: localhost
+DB_PORT: 3306
+DB_USER: root
+DB_PASSWORD: password
+DB_NAME: nhcommunity
+JWT_SECRET: your-secret-key
+SERVER_PORT: 8080
+CLIENT_ORIGIN: http://localhost:3000
+TOKEN_EXPIRES_IN: 43200 
